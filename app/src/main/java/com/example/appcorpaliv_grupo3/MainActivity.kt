@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.appcorpaliv_grupo3.ui.HomeScreen
+import com.example.appcorpaliv_grupo3.ui.screens.HomeScreen
 import com.example.appcorpaliv_grupo3.ui.theme.AppCorpaliv_Grupo3Theme
 
 class MainActivity : ComponentActivity() {
