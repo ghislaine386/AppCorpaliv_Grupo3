@@ -18,17 +18,7 @@ import com.example.appcorpaliv_grupo3.ui.theme.AppCorpaliv_Grupo3Theme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenExpandida() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Mi App Kotlin") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
-                )
-            )
-        }
-    ) { innerPadding ->
+    Scaffold { innerPadding ->
         Row(
             modifier = Modifier
                 .padding(innerPadding)

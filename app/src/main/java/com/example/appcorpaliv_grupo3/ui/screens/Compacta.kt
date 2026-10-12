@@ -17,17 +17,7 @@ import com.example.appcorpaliv_grupo3.ui.theme.AppCorpaliv_Grupo3Theme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenCompacta() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Mi App Kotlin") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary
-                )
-            )
-        }
-    ) { innerPadding ->
+    Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
@@ -50,10 +40,4 @@ fun HomeScreenCompacta() {
             Button(onClick = {}) { Text("Presióname") }
         }
     }
-}
-
-@Preview(name = "Compact", widthDp = 360, heightDp = 800, showBackground = true)
-@Composable
-fun PreviewCompact() {
-    AppCorpaliv_Grupo3Theme { HomeScreenCompacta() }
 }
