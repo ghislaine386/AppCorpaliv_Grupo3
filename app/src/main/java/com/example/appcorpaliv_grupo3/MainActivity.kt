@@ -36,7 +36,9 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.appcorpaliv_grupo3.viewmodel.ContactoViewModel
 import kotlinx.coroutines.launch
+import com.example.appcorpaliv_grupo3.ui.screens.ResumenScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity(){
@@ -46,6 +48,7 @@ class MainActivity : ComponentActivity(){
         setContent {
             AppCorpaliv_Grupo3Theme {
                 val viewModel: MainViewModel = viewModel()
+                val contactoViewModel: ContactoViewModel = viewModel()
                 val navController = rememberNavController()
 
                 LaunchedEffect(Unit) {
@@ -111,7 +114,8 @@ class MainActivity : ComponentActivity(){
                             composable(Screen.Programas.route) { ProgramaScreen(viewModel) }
                             composable(Screen.Catalogo.route) { CatalogoScreen(viewModel) }
                             composable(Screen.Impacto.route) { ImpactoScreen(viewModel) }
-                            composable(Screen.Contacto.route) { ContactoScreen(viewModel) }
+                            composable(Screen.Contacto.route) { ContactoScreen(viewModel, contactoViewModel) }
+                            composable(Screen.Resumen.route) { ResumenScreen(viewModel, contactoViewModel) }
                         }
                     }
                 }
