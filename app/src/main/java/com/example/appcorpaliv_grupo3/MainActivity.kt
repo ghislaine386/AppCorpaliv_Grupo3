@@ -17,6 +17,7 @@ import com.example.appcorpaliv_grupo3.ui.screens.HomeScreen
 import com.example.appcorpaliv_grupo3.ui.screens.ImpactoScreen
 import com.example.appcorpaliv_grupo3.ui.screens.ProgramaScreen
 import com.example.appcorpaliv_grupo3.ui.screens.EstadoScreen
+import com.example.appcorpaliv_grupo3.ui.screens.LoginScreen
 import com.example.appcorpaliv_grupo3.viewmodel.EstadoViewModel
 import com.example.appcorpaliv_grupo3.ui.theme.AppCorpaliv_Grupo3Theme
 import com.example.appcorpaliv_grupo3.viewmodel.MainViewModel
@@ -41,6 +42,13 @@ import androidx.compose.ui.unit.dp
 import com.example.appcorpaliv_grupo3.viewmodel.ContactoViewModel
 import kotlinx.coroutines.launch
 import com.example.appcorpaliv_grupo3.ui.screens.ResumenScreen
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.res.painterResource
+import com.example.appcorpaliv_grupo3.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -75,21 +83,46 @@ class MainActivity : ComponentActivity(){
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
                 val destinos = listOf(Screen.Inicio, Screen.Programas, Screen.Catalogo, Screen.Impacto, Screen.Contacto, Screen.Estado)
-                val etiquetas = listOf("Inicio", "Programas", "Catálogo", "Impacto", "Contacto", "Estado")
+                val etiquetas = listOf("Inicio", "Programas", "Catálogo", "Impacto", "Contacto", "Modo Accesible")
 
                 ModalNavigationDrawer(
                     drawerState = drawerState,
                     drawerContent = {
                         ModalDrawerSheet {
-                            Text("Menú", modifier = Modifier.padding(16.dp))
-                            destinos.forEachIndexed { index, screen ->
+                            // Column ocupatodo el alto del menu para poder dejar el login abajo
+                            Column(modifier = Modifier.fillMaxHeight()) {
+                                Text("Menú", modifier = Modifier.padding(16.dp))
+                                // opciones principales: se generan recorriendo las listas destinos y etiquetas
+                                destinos.forEachIndexed { index, screen ->
+                                    NavigationDrawerItem(
+                                        label = { Text(etiquetas[index]) },
+                                        selected = false,
+                                        onClick = {
+                                            scope.launch { drawerState.close() } // cierra el menu al elegir
+                                            viewModel.navigateTo(screen) // el ViewModel emite el evento de navegacion
+                                        }
+                                    )
+                                }
+
+                                // Ocupa el espacio sobrante y empuja el login hacia el fondo del menu
+                                Spacer(modifier = Modifier.weight(1f))
+
+                                // Opcion de inicio de sesion: va aparte de la lista, abajo a la izquierda y con el logo
                                 NavigationDrawerItem(
-                                    label = { Text(etiquetas[index]) },
+                                    label = { Text("Iniciar sesión") },
+                                    icon = {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.logo),
+                                            contentDescription = "Logo CORPALIV",
+                                            modifier = Modifier.size(28.dp)
+                                        )
+                                    },
                                     selected = false,
                                     onClick = {
                                         scope.launch { drawerState.close() }
-                                        viewModel.navigateTo(screen)
-                                    }
+                                        viewModel.navigateTo(Screen.Login)
+                                    },
+                                    modifier = Modifier.padding(bottom = 16.dp)
                                 )
                             }
                         }
@@ -121,6 +154,9 @@ class MainActivity : ComponentActivity(){
                             composable(Screen.Contacto.route) { ContactoScreen(viewModel, contactoViewModel) }
                             composable(Screen.Resumen.route) { ResumenScreen(viewModel, contactoViewModel) }
                             composable(Screen.Estado.route) { EstadoScreen(estadoViewModel) }
+                            // Ruta de la pantalla de inicio de sesion (se abre desde el menu lateral)
+                            composable(Screen.Login.route) { LoginScreen(viewModel)}
+
                         }
                     }
                 }
