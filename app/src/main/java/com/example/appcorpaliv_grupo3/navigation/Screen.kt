@@ -8,4 +8,7 @@ sealed class Screen(val route : String){
     data object Contacto : Screen (route = "contacto_page")
     data object Resumen : Screen(route = "resumen_page")
     data object Estado : Screen(route = "estado_page")
+
+    //Ruta de la pantalla de inicio de sesion
+    data object Login : Screen(route = "login_page")
 }
