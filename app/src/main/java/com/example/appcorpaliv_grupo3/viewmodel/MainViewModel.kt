@@ -14,12 +14,26 @@ class MainViewModel : ViewModel(){
     private val _navigationEvents = MutableSharedFlow<NavigationEvent>()
     val navigationEvents: SharedFlow<NavigationEvent> = _navigationEvents.asSharedFlow()
 
-    fun navigateTo(screen: Screen) {
+    // Envía un evento de navegación a MainActivity.
+    // Los parámetros extra son opcionales (tienen valor por defecto),
+    // así que las llamadas antiguas como navigateTo(Screen.Inicio) siguen funcionando.
+    fun navigateTo(
+        screen: Screen,                  // pantalla de destino
+        popUpToRoute: Screen? = null,    // hasta qué pantalla se borra el historial (null = no borra nada)
+        inclusive: Boolean = false,      // true = también borra esa pantalla del historial
+        singleTop: Boolean = false       // true = evita abrir la misma pantalla dos veces seguidas
+    ) {
         viewModelScope.launch {
-            _navigationEvents.emit(NavigationEvent.NavigateTo(route = screen))
+            _navigationEvents.emit(
+                NavigationEvent.NavigateTo(
+                    route = screen,
+                    popUpToRoute = popUpToRoute,
+                    inclusive = inclusive,
+                    singleTop = singleTop
+                )
+            )
         }
     }
-
     fun navigateBack(){
         viewModelScope.launch {
             _navigationEvents.emit(NavigationEvent.PopBackStack)

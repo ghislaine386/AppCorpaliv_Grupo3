@@ -51,5 +51,10 @@ class ContactoViewModel : ViewModel (){
         _estado.update { it.copy(errores = errores) }
         return errores == ContactoErrores()
     }
+    // Deja el formulario de contacto vacío (nombre, correo, mensaje, etc.).
+    // Se usa al volver al inicio, para que el próximo usuario no vea datos anteriores.
+    fun limpiarFormulario() {
+        _estado.value = ContactoUiState()
+    }
 
 }
