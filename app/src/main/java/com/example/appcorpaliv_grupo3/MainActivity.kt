@@ -16,6 +16,8 @@ import com.example.appcorpaliv_grupo3.ui.screens.ContactoScreen
 import com.example.appcorpaliv_grupo3.ui.screens.HomeScreen
 import com.example.appcorpaliv_grupo3.ui.screens.ImpactoScreen
 import com.example.appcorpaliv_grupo3.ui.screens.ProgramaScreen
+import com.example.appcorpaliv_grupo3.ui.screens.EstadoScreen
+import com.example.appcorpaliv_grupo3.viewmodel.EstadoViewModel
 import com.example.appcorpaliv_grupo3.ui.theme.AppCorpaliv_Grupo3Theme
 import com.example.appcorpaliv_grupo3.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -40,6 +42,7 @@ import com.example.appcorpaliv_grupo3.viewmodel.ContactoViewModel
 import kotlinx.coroutines.launch
 import com.example.appcorpaliv_grupo3.ui.screens.ResumenScreen
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +52,7 @@ class MainActivity : ComponentActivity(){
             AppCorpaliv_Grupo3Theme {
                 val viewModel: MainViewModel = viewModel()
                 val contactoViewModel: ContactoViewModel = viewModel()
+                val estadoViewModel: EstadoViewModel = viewModel()
                 val navController = rememberNavController()
 
                 LaunchedEffect(Unit) {
@@ -70,8 +74,8 @@ class MainActivity : ComponentActivity(){
                 }
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
-                val destinos = listOf(Screen.Inicio, Screen.Programas, Screen.Catalogo, Screen.Impacto, Screen.Contacto)
-                val etiquetas = listOf("Inicio", "Programas", "Catálogo", "Impacto", "Contacto")
+                val destinos = listOf(Screen.Inicio, Screen.Programas, Screen.Catalogo, Screen.Impacto, Screen.Contacto, Screen.Estado)
+                val etiquetas = listOf("Inicio", "Programas", "Catálogo", "Impacto", "Contacto", "Estado")
 
                 ModalNavigationDrawer(
                     drawerState = drawerState,
@@ -116,6 +120,7 @@ class MainActivity : ComponentActivity(){
                             composable(Screen.Impacto.route) { ImpactoScreen(viewModel) }
                             composable(Screen.Contacto.route) { ContactoScreen(viewModel, contactoViewModel) }
                             composable(Screen.Resumen.route) { ResumenScreen(viewModel, contactoViewModel) }
+                            composable(Screen.Estado.route) { EstadoScreen(estadoViewModel) }
                         }
                     }
                 }
