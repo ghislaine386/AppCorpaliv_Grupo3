@@ -49,8 +49,10 @@ fun HomeScreenExpandida() {
                 modifier = Modifier.weight(1f).fillMaxHeight(),
                 verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
             ) {
+                InfoInstitucional()
+
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    listOf("Opción 1", "Opción 2", "Opción 3").forEach { titulo ->
+                    listOf("Programas", "Catálogo", "Impacto").forEach { titulo ->
                         Card(
                             modifier = Modifier.weight(1f),
                             colors = CardDefaults.cardColors(
