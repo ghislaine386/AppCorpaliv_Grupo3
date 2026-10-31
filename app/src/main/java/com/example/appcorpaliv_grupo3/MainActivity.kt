@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity(){
                 }
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
-                val destinos = listOf(Screen.Inicio, Screen.Contacto, Screen.Estado)
+                val destinos = listOf(Screen.Inicio, Impacto,Screen.Contacto, Screen.Estado)
                 val etiquetas = listOf("Inicio","Impacto", "Contacto", "Modo Accesible")
 
                 ModalNavigationDrawer(
