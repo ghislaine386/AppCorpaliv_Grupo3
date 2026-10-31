@@ -48,14 +48,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.res.painterResource
-import com.example.appcorpaliv_grupo3.R
+import com.example.appcorpaliv_grupo3.navigation.Screen.Impacto
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.activity.SystemBarStyle
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT))
         setContent {
             AppCorpaliv_Grupo3Theme {
                 val viewModel: MainViewModel = viewModel()
@@ -82,8 +85,8 @@ class MainActivity : ComponentActivity(){
                 }
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
-                val destinos = listOf(Screen.Inicio, Screen.Programas, Screen.Catalogo, Screen.Impacto, Screen.Contacto, Screen.Estado)
-                val etiquetas = listOf("Inicio", "Programas", "Catálogo", "Impacto", "Contacto", "Modo Accesible")
+                val destinos = listOf(Screen.Inicio, Screen.Contacto, Screen.Estado)
+                val etiquetas = listOf("Inicio","Impacto", "Contacto", "Modo Accesible")
 
                 ModalNavigationDrawer(
                     drawerState = drawerState,
@@ -136,8 +139,12 @@ class MainActivity : ComponentActivity(){
                                     IconButton(onClick = { scope.launch { drawerState.open() } }) {
                                         Icon(Icons.Default.Menu, contentDescription = "Menú")
                                     }
-
-                                }
+                                },
+                                colors = TopAppBarDefaults.topAppBarColors(
+                                    containerColor = MaterialTheme.colorScheme.primary,          // fondo azul
+                                    titleContentColor = MaterialTheme.colorScheme.onPrimary,     // título blanco
+                                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary  // ícono hamburguesa blanco
+                                )
                             )
 
                         }
@@ -147,10 +154,10 @@ class MainActivity : ComponentActivity(){
                             startDestination = Screen.Inicio.route,
                             modifier = Modifier.padding(innerPadding)
                         ) {
-                            composable(Screen.Inicio.route) { HomeScreen() }
+                            composable(Screen.Inicio.route) { HomeScreen(viewModel) }
                             composable(Screen.Programas.route) { ProgramaScreen(viewModel) }
                             composable(Screen.Catalogo.route) { CatalogoScreen(viewModel) }
-                            composable(Screen.Impacto.route) { ImpactoScreen(viewModel) }
+                            composable(Impacto.route) { ImpactoScreen(viewModel) }
                             composable(Screen.Contacto.route) { ContactoScreen(viewModel, contactoViewModel) }
                             composable(Screen.Resumen.route) { ResumenScreen(viewModel, contactoViewModel) }
                             composable(Screen.Estado.route) { EstadoScreen(estadoViewModel) }

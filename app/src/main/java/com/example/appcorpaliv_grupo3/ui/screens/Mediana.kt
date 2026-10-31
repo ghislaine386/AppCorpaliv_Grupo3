@@ -41,10 +41,7 @@ fun HomeScreenMediana() {
                     style = MaterialTheme.typography.headlineLarge,
                     color = MaterialTheme.colorScheme.primary
                 )
-                Text(
-                    text = "Pantalla adaptable con Jetpack Compose",
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                InfoInstitucional()
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Button(onClick = {}) { Text("Presióname") }
                     OutlinedButton(onClick = {}) { Text("Más info") }
