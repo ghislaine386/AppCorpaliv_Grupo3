@@ -64,7 +64,4 @@ Hoy la información sobre cómo colaborar con CORPALIV está dispersa en reunion
 - Android Studio reciente, con soporte para Jetpack Compose.
 - JDK 11 o superior (incluido con Android Studio).
 - Emulador Android o celular con Android 7.0 (API 24) o superior.
-- Conexión a internet para sincronizar las dependencias de Gradle.
-- Integración con un backend (API REST / microservicios) para guardar y consultar los registros de interés.
 - Módulo del equipo de vinculación para gestionar el estado de cada registro (nuevo, contactado, concretado).
-- Versión para iOS.
